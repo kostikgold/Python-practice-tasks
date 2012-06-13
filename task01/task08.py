@@ -1,20 +1,23 @@
-def removeNonPositiveColumns(_matrix):
-    rows = len(_matrix[:])
-    columns = len(_matrix[0][:])
+def removeNonPositiveColumns(my_matrix):
+    rows = len(my_matrix)
+    columns = len(my_matrix[0])
     removeColumns = []
+    
     for col in xrange(columns):
         negativesInColumn = 0
         for row in xrange(rows):
-            if _matrix[row][col]<0:
+            if my_matrix[row][col]<0:
                 negativesInColumn += 1
         if negativesInColumn==rows:
             removeColumns.append(col)
     removedColumns = 0
+    
     for col in removeColumns:
         for row in xrange(rows):
-            _matrix[row].pop(col-removedColumns)
+            my_matrix[row].pop(col-removedColumns)
         removedColumns += 1
-    return _matrix
+    return my_matrix
+
 matrix = [[1, -2, 3, -4, 5],
           [1, -2, 3, -4, 5],
           [1, -2, 3, -4, 5]]
