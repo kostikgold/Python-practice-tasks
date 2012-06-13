@@ -1,4 +1,4 @@
-def increaseDiagonalElementByCulumnMinimum(_matrix):
+def removeNonPositiveColumns(_matrix):
     rows = len(_matrix[:])
     columns = len(_matrix[0][:])
     for col in xrange(columns):
@@ -10,4 +10,4 @@ def increaseDiagonalElementByCulumnMinimum(_matrix):
 matrix = [[1,10,100],
           [2,20,200],
           [3,30,300]]
-print increaseDiagonalElementByCulumnMinimum(matrix)
+print removeNonPositiveColumns(matrix)
