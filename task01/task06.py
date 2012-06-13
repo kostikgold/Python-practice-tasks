@@ -11,5 +11,7 @@ def swapColumnsWithMinAndMaxEvenElements(_matrix):
     for row in xrange(rows):
         _matrix[row][min(evenNumbersList)], _matrix[row][max(evenNumbersList)] = _matrix[row][max(evenNumbersList)], _matrix[row][min(evenNumbersList)]            
     return _matrix
-matrix = [[1,2,3],[4,5,6],[7,8,9]]
-swapColumnsWithMinAndMaxEvenElements(matrix)
+matrix = [[1,2,3],
+          [4,5,6],
+          [7,8,9]]
+print swapColumnsWithMinAndMaxEvenElements(matrix)
