@@ -21,15 +21,21 @@ class RepairStudio(object):
         self.__max_devices = max_devices
         self.__current_devices = 0
         self.__device_list = []
+        self.__money = 0
     def get_current_devices(self):
         return self.__current_devices
     def get_current_devices_list(self):
         return self.__device_list
+    def get_money(self):
+        return self.__money
     def device_add(self, device):
         if self.__current_devices < self.__max_devices:
-            self.__device_list.append(device)
-            self.__current_devices += 1
-            return "Ok", self.__current_devices, self.__max_devices 
+            if device.can_be_repaired() and device.get_broken_status(): 
+                self.__device_list.append(device)
+                self.__current_devices += 1
+                return "AddOk", self.__current_devices, self.__max_devices
+            else:
+                return "Cannot repair" 
         else:
             return "Studio full"
     def device_repair(self, device):
@@ -37,7 +43,8 @@ class RepairStudio(object):
             if device in self.__device_list:
                 self.__device_list.remove(device)           
                 self.__current_devices -= 1
-                return "Ok", self.__current_devices, self.__max_devices
+                self.__money += device.get_repair_price()
+                return "RepOk", self.__current_devices, self.__max_devices
             else:
                 return "We don't have the device"
         else:
@@ -52,13 +59,14 @@ chinese_mobile = SuperBrokenDevice("Chinese 1Ph0n3 4", True, 0)
 mobile = Device("Genuine iPhone 4S", True, 30)
 
 noname_studio = RepairStudio(2)
-print "Before", noname_studio.get_current_devices()
+print "Before: devices =", noname_studio.get_current_devices(), "money =", noname_studio.get_money()
 print noname_studio.device_add(tv_signal_transmitter)
 print noname_studio.device_add(mobile)
 
-print "After", noname_studio.get_current_devices()
+print "Added devices:", noname_studio.get_current_devices()
 print noname_studio.device_repair(mobile)
 for i in noname_studio.get_current_devices_list():
     print i.get_name()
 
 print noname_studio.device_repair(tv_signal_transmitter)
+print "Repaired. Money =", noname_studio.get_money()
