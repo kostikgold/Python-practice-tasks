@@ -9,7 +9,6 @@ g = Github()
 def get_commits_number(user):
     commits_number = 0
     for repo in g.get_user(user).get_repos():
-        print repo.get_commits()
         for i in repo.get_commits():
             commits_number +=1
     return commits_number
