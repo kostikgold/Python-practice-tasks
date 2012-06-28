@@ -1,0 +1,20 @@
+Dmitry Sandalov:
+	* Repository.get_commits() returns iterable and does not provide
+	  __len__. Generator was used to count iterable elements.
+
+Evgeny Shibalkin:
+	* Class My_Github inherits class Github and oveerides get_user() for handling
+	  errors & to input a login.
+	* Changes to call get_user() once and use it's result many times instead of 
+	  calling it many times 
+
+Alexander Korenev:
+	* Thoughts on map
+	  #import operator
+	  #x = { 1: 2, 3: 4, 4:3, 2:1, 7:1, 8:2 }
+	  #sorted_x = sorted( x.iteritems(), key=operator.itemgetter(0) )
+	  #print sorted_x
+
+Konstantin Sokolov:
+
+Anastasiya Balyanova:
