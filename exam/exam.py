@@ -2,6 +2,7 @@ from github import Github
 
 g = Github()
 
+
 # Authors:
 #   * A. Balyanova <bal0102@yandex.ru>
 #   * E. Shibalkin <shibalkin@rambler.ru>
@@ -15,6 +16,7 @@ def get_commits_number(user):
                 commits_number +=1
     return commits_number
 
+
 # Authors:
 #   * K. Sokolov   <kostikgold@gmail.com>
 #   * D. Sandalov  <dmitry@sandalov.org>
@@ -26,7 +28,7 @@ def repos_sum_volume(user):
     return sum_repository
 
 
-# Authors:
+# Author:
 #   * A. Korenev <korenev.alexander@gmail.com>
 
 def get_folder_login_list(user):
@@ -51,18 +53,9 @@ def print_total_people(list):
             print "login: ", login
         print "total:", len(x)
 
-#import operator
-#x = { 1: 2, 3: 4, 4:3, 2:1, 7:1, 8:2 }
-#sorted_x = sorted( x.iteritems(), key=operator.itemgetter(0) )
-#print sorted_x
 
-
-user1 = "dmitrysandalov"
-user2 = "kostikgold"
-user3 = "alsmirn"
-user4 = "akorenev"
-
-print user1, "wrote (sloc):", repos_sum_volume(user1)
-print user1, "comitted times:", get_commits_number(user1)
-print_total_people(get_folder_login_list(user3))
+user = "alsmirn"
+print user, "wrote (sloc):", repos_sum_volume(user)
+print user, "comitted times:", get_commits_number(user)
+print_total_people(get_folder_login_list(user))
 
