@@ -1,11 +1,8 @@
 from github import Github
-
-g = Github()
-
+from github import GithubException
 
 # Authors:
 #   * A. Balyanova <bal0102@yandex.ru>
-#   * E. Shibalkin <shibalkin@rambler.ru>
 #   * D. Sandalov  <dmitry@sandalov.org>
 
 def get_commits_number(user):
@@ -51,9 +48,32 @@ def print_total_people(list):
             print "login: ", login
         print "total:", len(x)
 
+#g = Github()
+#user = "alsmirn"
+#print user, "wrote (sloc):", repos_sum_volume(user)
+#print user, "comitted times:", get_commits_number(user)
+#print_total_people(get_folder_login_list(user))
 
-user = "alsmirn"
-print user, "wrote (sloc):", repos_sum_volume(user)
-print user, "comitted times:", get_commits_number(user)
-print_total_people(get_folder_login_list(user))
 
+
+# Author:
+#   * E. Shibalkin <shibalkin@rambler.ru>
+
+class My_Github(Github):
+    def get_user(self, login=None):
+        if login is None:
+            login = raw_input("Enter Github username: ")
+        while 0 == 0:
+            try:
+                return Github.get_user(self, login)
+            except (GithubException):
+                if raw_input ("User not found. Continue? (y|n): ") == "n":
+                    exit(0)
+                else:
+                    login = raw_input("Enter Github username: ")
+
+g = My_Github()
+user = g.get_user()
+print user._login, "wrote (sloc):", repos_sum_volume(user._login)
+print user._login, "comitted times:", get_commits_number(user._login)
+print_total_people(get_folder_login_list(user._login))
