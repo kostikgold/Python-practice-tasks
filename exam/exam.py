@@ -1,5 +1,4 @@
-from Github import Github #Linux
-#from github import Github #Windows
+from github import Github
 
 g = Github()
 
@@ -11,8 +10,9 @@ g = Github()
 def get_commits_number(user):
     commits_number = 0
     for repo in g.get_user(user).get_repos():
-        for i in repo.get_commits():
-            commits_number +=1
+        if repo.size != 0:
+            for i in repo.get_commits():
+                commits_number +=1
     return commits_number
 
 # Authors:
