@@ -12,8 +12,7 @@ def get_commits_number(user):
     commits_number = 0
     for repo in g.get_user(user).get_repos():
         if repo.size != 0:
-            for i in repo.get_commits():
-                commits_number +=1
+            commits_number += sum(1 for e in repo.get_commits())
     return commits_number
 
 
