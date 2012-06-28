@@ -39,7 +39,6 @@ def get_folder_login_list(user):
             for commit in repo.get_commits():
                 if commit.committer != None:
                     temp[commit.committer.login] = repo.name
-#                    print repo.name + " " + commit.committer.login
             list.append(temp)
         except:
             print "creating empty folder"
