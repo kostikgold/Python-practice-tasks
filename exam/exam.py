@@ -42,7 +42,7 @@ def get_folder_login_list(user):
 
 def print_total_people(list):
     for x in list:
-        print "--------------------------------"
+        print "-"*40
         print "folder:", x.values()[0], ":"
         for login in x.keys():
             print "login: ", login
@@ -54,23 +54,37 @@ def print_total_people(list):
 #print user, "comitted times:", get_commits_number(user)
 #print_total_people(get_folder_login_list(user))
 
+# Authors:
+#   * K. Sokolov   <kostikgold@gmail.com>
+#   * A. Smirnov <alsmirnn@gmail.com>
 
+
+def ask_ok(prompt, retries=4, complaint='Yes' or 'No'):
+    while 1:
+        ok = raw_input(prompt)
+        if ok in ('Y', 'Yes'): return 1
+        if ok in ('N', 'No', 'Not'): return 0
+        retries = retries - 1
+        if retries < 0:
+            raise IOError('User don\'t answer!')
+        print complaint
 
 # Author:
 #   * E. Shibalkin <shibalkin@rambler.ru>
+#   * K. Sokolov   <kostikgold@gmail.com>
 
 class My_Github(Github):
     def get_user(self, login=None):
         if login is None:
             login = raw_input("Enter Github username: ")
-        while 0 == 0:
+        while 1:
             try:
                 return Github.get_user(self, login)
             except (GithubException):
-                if raw_input ("User not found. Continue? (y|n): ") == "n":
-                    exit(0)
-                else:
+                if ask_ok("User unknown. Do you want to continue?"):
                     login = raw_input("Enter Github username: ")
+                else:
+                    exit(0)
 
 g = My_Github()
 user = g.get_user()
