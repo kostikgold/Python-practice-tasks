@@ -66,19 +66,19 @@ class My_Github(Github):
                 return Github.get_user(self, login)
             except (GithubException):
                 print ("User not found")
-                if ask_ok("Try again?") == 1:
+                if ask_ok("Try again") == 1:
                     login = raw_input("Enter Github username: ")
                 else:
                     print ("Thanks for using this application. Bye!")
                     exit(0)
 
-def ask_ok(prompt, retries=4, complaint='Enter Yes or No'):
+def ask_ok(prompt, retries=3, complaint='[Y/n]? '):
 # example from lecture 1, modified by E. Shibalkin <shibalkin@rambler.ru>
-    for i in xrange(retries + 1):
+    for i in xrange(retries):
         ok = raw_input(prompt + " " + complaint)
         if ok in ("Y", "Yes", "y"): return 1
         if ok in ("N", "No", "Not", "n"): return 0
-        if i == retries:
+        if i == retries-1:
             raise IOError("User doesn't respond!")
 
 g = My_Github()
