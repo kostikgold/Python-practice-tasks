@@ -7,7 +7,7 @@ from github import GithubException
 
 def get_commits_number(user):
     commits_number = 0
-    for repo in g.get_user(user).get_repos():
+    for repo in user.get_repos():
         if repo.size != 0:
             commits_number += sum(1 for e in repo.get_commits())
     return commits_number
@@ -19,7 +19,7 @@ def get_commits_number(user):
 
 def repos_sum_volume(user):
     sum_repository = 0
-    for repo in g.get_user(user).get_repos():
+    for repo in user.get_repos():
         sum_repository += repo.size
     return sum_repository
 
@@ -29,7 +29,7 @@ def repos_sum_volume(user):
 
 def get_folder_login_list(user):
     list = []
-    for repo in g.get_user(user).get_repos():
+    for repo in user.get_repos():
         temp = {}        
         try:
             for commit in repo.get_commits():
@@ -60,20 +60,29 @@ def print_total_people(list):
 #   * E. Shibalkin <shibalkin@rambler.ru>
 
 class My_Github(Github):
-    def get_user(self, login=None):
-        if login is None:
-            login = raw_input("Enter Github username: ")
-        while 0 == 0:
+    def get_user(self, login=raw_input("Enter Github username: ")):
+        while 1:
             try:
                 return Github.get_user(self, login)
             except (GithubException):
-                if raw_input ("User not found. Continue? (y|n): ") == "n":
-                    exit(0)
-                else:
+                print ("User not found")
+                if ask_ok("Try again?") == 1:
                     login = raw_input("Enter Github username: ")
+                else:
+                    print ("Thanks for using this application. Bye!")
+                    exit(0)
+
+def ask_ok(prompt, retries=4, complaint='Enter Yes or No'):
+# example from lecture 1, modified by E. Shibalkin <shibalkin@rambler.ru>
+    for i in xrange(retries + 1):
+        ok = raw_input(prompt + " " + complaint)
+        if ok in ("Y", "Yes", "y"): return 1
+        if ok in ("N", "No", "Not", "n"): return 0
+        if i == retries:
+            raise IOError("User doesn't respond!")
 
 g = My_Github()
 user = g.get_user()
-print user._login, "wrote (sloc):", repos_sum_volume(user._login)
-print user._login, "comitted times:", get_commits_number(user._login)
-print_total_people(get_folder_login_list(user._login))
+print user._login, "wrote (sloc):", repos_sum_volume(user)
+print user._login, "comitted times:", get_commits_number(user)
+print_total_people(get_folder_login_list(user))
