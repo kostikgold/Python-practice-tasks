@@ -1,0 +1,14 @@
+External PyGithub is needed to run app.
+After installing PyGithub it should be added to PYTHONPATH
+
+== Windows ==
+1) Download Setuptools:
+http://pypi.python.org/pypi/setuptools/#windows
+
+2) In cmd console cd to setuptools
+
+3) easy_install PyGitghub
+
+== Linux ==
+sudo apt-get install python-setuptools
+sudo easy_install PyGithub
