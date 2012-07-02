@@ -88,7 +88,7 @@ class MyGithub(Github):
             self.get_user()
 
 
-g = My_Github()
+g = MyGithub()
 user = g.get_user()
 print user._login, "wrote (sloc):", repos_sum_volume(user)
 print user._login, "comitted times:", get_commits_number(user)
